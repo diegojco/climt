@@ -167,7 +167,7 @@ module rrtmg_lw_c_binder
 
 
             call rrtmg_lw &
-                (ncol, nlay, icld, idrv, icalc_bnds&
+                (ncol, nlay, icld, idrv, icalc_bnds, &
                  play, plev, tlay, tlev, tsfc, &
                  h2ovmr, o3vmr, co2vmr, ch4vmr, n2ovmr, o2vmr, &
                  cfc11vmr, cfc12vmr, cfc22vmr, ccl4vmr, emis, &
