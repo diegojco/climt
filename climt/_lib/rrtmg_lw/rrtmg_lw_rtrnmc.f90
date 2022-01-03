@@ -127,7 +127,7 @@
                                                       !    Dimensions: (0:nlayers,nbndlw)
       real(kind=rb), intent(out) :: totdclfl_bnd(0:,:)! clear sky downward longwave flux by band (w/m2)
                                                       !    Dimensions: (0:nlayers,nbndlw)
-      real(kind=rb), intent(out) :: fnet_bnd(0:,:)    ! clear sky net longwave flux by band (w/m2)
+      real(kind=rb), intent(out) :: fnetc_bnd(0:,:)   ! clear sky net longwave flux by band (w/m2)
                                                       !    Dimensions: (0:nlayers,nbndlw)
       real(kind=rb), intent(out) :: htrc_bnd(0:,:)    ! clear sky longwave heating rate by band (k/day)
                                                       !    Dimensions: (0:nlayers, nbndlw)
