@@ -92,7 +92,7 @@ module rrtmg_lw_c_binder
           end subroutine mcica_subcol_lw_wrapper
 
           subroutine rrtmg_lw_mcica_wrapper &
-              (ncol, nlay, icld, idrv, &
+              (ncol, nlay, icld, idrv, icalc_bnds, &
                play, plev, tlay, tlev, tsfc, &
                h2ovmr, o3vmr, co2vmr, ch4vmr, n2ovmr, o2vmr, &
                cfc11vmr, cfc12vmr, cfc22vmr, ccl4vmr, emis, &
@@ -102,6 +102,7 @@ module rrtmg_lw_c_binder
                tauaer, &
                uflx, dflx, hr, uflxc, dflxc, hrc, &
 ! optional I/O
+               uflx_bnd, dflx_bnd, hr_bnd, uflxc_bnd, dflxc_bnd, hrc_bnd, &
                duflx_dt, duflxc_dt)&
              bind(c)
 
@@ -112,6 +113,7 @@ module rrtmg_lw_c_binder
             integer(kind=im), intent(in) :: nlay
             integer(kind=im), intent(inout) :: icld
             integer(kind=im), intent(in) :: idrv
+            integer(kind=im), intent(in) :: icalc_bnds
 
             real(kind=rb), intent(in) :: play(ncol, nlay)
             real(kind=rb), intent(in) :: plev(ncol, nlay + 1)
@@ -153,12 +155,19 @@ module rrtmg_lw_c_binder
             real(kind=rb), intent(out) :: dflxc(ncol, nlay + 1)
             real(kind=rb), intent(out) :: hrc(ncol, nlay)
 
+            real(kind=rb), intent(out) :: uflx_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: dflx_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: hr_bnd(ncol, nlay, nbndlw)
+            real(kind=rb), intent(out) :: uflxc_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: dflxc_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: hrc_bnd(ncol, nlay, nbndlw)
+
             real(kind=rb), intent(out), optional :: duflx_dt(ncol, nlay + 1)
             real(kind=rb), intent(out), optional :: duflxc_dt(ncol, nlay + 1)
 
 
             call rrtmg_lw &
-                (ncol, nlay, icld, idrv, &
+                (ncol, nlay, icld, idrv, icalc_bnds&
                  play, plev, tlay, tlev, tsfc, &
                  h2ovmr, o3vmr, co2vmr, ch4vmr, n2ovmr, o2vmr, &
                  cfc11vmr, cfc12vmr, cfc22vmr, ccl4vmr, emis, &
@@ -168,13 +177,14 @@ module rrtmg_lw_c_binder
                  tauaer, &
                  uflx, dflx, hr, uflxc, dflxc, hrc, &
 ! optional I/O
+                 uflx_bnd, dflx_bnd, hr_bnd, uflxc_bnd, dflxc_bnd, hrc_bnd, &
                  duflx_dt, duflxc_dt)
 
 
           end subroutine rrtmg_lw_mcica_wrapper
 
           subroutine rrtmg_lw_nomcica_wrapper &
-              (ncol, nlay, icld, idrv, &
+              (ncol, nlay, icld, idrv, icalc_bnds, &
                play, plev, tlay, tlev, tsfc, &
                h2ovmr, o3vmr, co2vmr, ch4vmr, n2ovmr, o2vmr, &
                cfc11vmr, cfc12vmr, cfc22vmr, ccl4vmr, emis, &
@@ -184,6 +194,7 @@ module rrtmg_lw_c_binder
                tauaer, &
                uflx, dflx, hr, uflxc, dflxc, hrc, &
 ! optional I/O
+               uflx_bnd, dflx_bnd, hr_bnd, uflxc_bnd, dflxc_bnd, hrc_bnd, &
                duflx_dt, duflxc_dt)&
              bind(c)
 
@@ -194,6 +205,7 @@ module rrtmg_lw_c_binder
             integer(kind=im), intent(in) :: nlay
             integer(kind=im), intent(inout) :: icld
             integer(kind=im), intent(in) :: idrv
+            integer(kind=im), intent(in) :: icalc_bnds
 
             real(kind=rb), intent(in) :: play(ncol, nlay)
             real(kind=rb), intent(in) :: plev(ncol, nlay + 1)
@@ -234,13 +246,20 @@ module rrtmg_lw_c_binder
             real(kind=rb), intent(out) :: uflxc(ncol, nlay + 1)
             real(kind=rb), intent(out) :: dflxc(ncol, nlay + 1)
             real(kind=rb), intent(out) :: hrc(ncol, nlay)
-
+            
+            real(kind=rb), intent(out) :: uflx_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: dflx_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: hr_bnd(ncol, nlay, nbndlw)
+            real(kind=rb), intent(out) :: uflxc_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: dflxc_bnd(ncol, nlay + 1, nbndlw)
+            real(kind=rb), intent(out) :: hrc_bnd(ncol, nlay, nbndlw)
+            
             real(kind=rb), intent(out), optional :: duflx_dt(ncol, nlay + 1)
             real(kind=rb), intent(out), optional :: duflxc_dt(ncol, nlay + 1)
 
 
             call rrtmg_lw &
-                (ncol, nlay, icld, idrv, &
+                (ncol, nlay, icld, idrv, icalc_bnds, &
                  play, plev, tlay, tlev, tsfc, &
                  h2ovmr, o3vmr, co2vmr, ch4vmr, n2ovmr, o2vmr, &
                  cfc11vmr, cfc12vmr, cfc22vmr, ccl4vmr, emis, &
@@ -250,6 +269,7 @@ module rrtmg_lw_c_binder
                  tauaer, &
                  uflx, dflx, hr, uflxc, dflxc, hrc, &
 ! optional I/O
+                 uflx_bnd, dflx_bnd, hr_bnd, uflxc_bnd, dflxc_bnd, hrc_bnd, &
                  duflx_dt, duflxc_dt)
 
 
