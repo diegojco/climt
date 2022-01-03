@@ -322,6 +322,7 @@ cpdef void rrtm_calculate_longwave_fluxes_mcica(
             &num_cols, &num_layers,
             &rrtm_cloud_overlap_method,
             &rrtm_calculate_change_up_flux,
+	    &rrtm_calculate_fluxes_by_band,
             <double *>&layer_pressure[0,0],
             <double *>&interface_pressure[0,0],
             <double *>&layer_temp[0,0],
