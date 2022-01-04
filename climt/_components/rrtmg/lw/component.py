@@ -157,27 +157,27 @@ class RRTMGLongwave(TendencyComponent):
             'units': 'degK day^-1',
         },
         'upwelling_longwave_flux_by_band_in_air': {
-            'dims': ['interface_levels', '*'],
+            'dims': ['interface_levels', '*', 'num_longwave_bands'],
             'units': 'W m^-2',
         },
         'downwelling_longwave_flux_by_band_in_air': {
-            'dims': ['interface_levels', '*'],
+            'dims': ['interface_levels', '*', 'num_longwave_bands'],
             'units': 'W m^-2',
         },
         'upwelling_longwave_flux_by_band_in_air_assuming_clear_sky': {
-            'dims': ['interface_levels', '*'],
+            'dims': ['interface_levels', '*', 'num_longwave_bands'],
             'units': 'W m^-2',
         },
         'downwelling_longwave_flux_by_band_in_air_assuming_clear_sky': {
-            'dims': ['interface_levels', '*'],
+            'dims': ['interface_levels', '*', 'num_longwave_bands'],
             'units': 'W m^-2',
         },
         'air_temperature_tendency_from_longwave_by_band_assuming_clear_sky': {
-            'dims': ['mid_levels', '*'],
+            'dims': ['mid_levels', '*', 'num_longwave_bands'],
             'units': 'degK day^-1',
         },
         'air_temperature_tendency_from_longwave_by_band': {
-            'dims': ['mid_levels', '*'],
+            'dims': ['mid_levels', '*', 'num_longwave_bands'],
             'units': 'degK day^-1',
         },
     }
@@ -278,7 +278,7 @@ class RRTMGLongwave(TendencyComponent):
             self._calc_dflxdt = 1
         else:
             self._calc_dflxdt = 0
-        
+
         if calculate_fluxes_by_band:
             self._calc_flxbnd = 1
         else:
@@ -456,7 +456,7 @@ class RRTMGLongwave(TendencyComponent):
                 diagnostics['air_temperature_tendency_from_longwave_assuming_clear_sky'],
                 diagnostics['upwelling_longwave_flux_by_band_in_air'],
                 diagnostics['downwelling_longwave_flux_by_band_in_air'],
-                diagnostics['air_temperature_tendency_from_longwave_by_band'],,
+                diagnostics['air_temperature_tendency_from_longwave_by_band'],
                 diagnostics['upwelling_longwave_flux_by_band_in_air_assuming_clear_sky'],
                 diagnostics['downwelling_longwave_flux_by_band_in_air_assuming_clear_sky'],
                 diagnostics['air_temperature_tendency_from_longwave_by_band_assuming_clear_sky'],
@@ -503,7 +503,7 @@ class RRTMGLongwave(TendencyComponent):
                 diagnostics['air_temperature_tendency_from_longwave_assuming_clear_sky'],
                 diagnostics['upwelling_longwave_flux_by_band_in_air'],
                 diagnostics['downwelling_longwave_flux_by_band_in_air'],
-                diagnostics['air_temperature_tendency_from_longwave_by_band'],,
+                diagnostics['air_temperature_tendency_from_longwave_by_band'],
                 diagnostics['upwelling_longwave_flux_by_band_in_air_assuming_clear_sky'],
                 diagnostics['downwelling_longwave_flux_by_band_in_air_assuming_clear_sky'],
                 diagnostics['air_temperature_tendency_from_longwave_by_band_assuming_clear_sky'],
