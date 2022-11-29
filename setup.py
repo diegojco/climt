@@ -53,7 +53,7 @@ test_requirements = [
 
 # Find first gcc directory
 def find_homebrew_gcc():
-    return glob.glob('/usr/local/Cellar/gcc*')[0]
+    return (glob.glob('/opt/homebrew/Cellar/gcc*') + glob.glob('/usr/local/Cellar/gcc*'))[0]
 
 
 # Platform specific settings
@@ -141,7 +141,7 @@ if operating_system == 'Darwin':
     os.environ['FFLAGS'] += ' -mmacosx-version-min=10.7'
     os.environ['CFLAGS'] += ' -mmacosx-version-min=10.7'
     default_link_args = []
-    os.environ['LDSHARED'] = os.environ['CC']+' -bundle -undefined dynamic_lookup -arch x86_64'
+    os.environ['LDSHARED'] = os.environ['CC']+' -bundle -undefined dynamic_lookup'
 
 print('Compilers: ', os.environ['CC'], os.environ['FC'])
 
@@ -183,29 +183,6 @@ if os.environ.get('READTHEDOCS') == 'True':
 else:
     ext_modules = [
         Extension(
-            'climt._components._berger_solar_insolation',
-            ['climt/_components/_berger_solar_insolation.pyx'],
-        ),
-
-        Extension(
-            'climt._components.simple_physics._simple_physics',
-            sources=['climt/_components/simple_physics/_simple_physics.pyx'],
-            libraries=libraries,
-            include_dirs=include_dirs,
-            extra_compile_args=default_compile_args,
-            library_dirs=lib_path_list,
-            extra_link_args=[lib_path_list[0]+'/libsimple_physics.a'] + default_link_args),
-
-        Extension(
-            'climt._components.emanuel._emanuel_convection',
-            sources=['climt/_components/emanuel/_emanuel_convection.pyx'],
-            libraries=libraries,
-            include_dirs=include_dirs,
-            extra_compile_args=default_compile_args,
-            library_dirs=lib_path_list,
-            extra_link_args=[lib_path_list[0]+'/libemanuel.a'] + default_link_args),
-
-        Extension(
             'climt._components.rrtmg.lw._rrtmg_lw',
             sources=['climt/_components/rrtmg/lw/_rrtmg_lw.pyx'],
             libraries=libraries,
@@ -215,19 +192,6 @@ else:
             extra_link_args=[lib_path_list[0]+'/librrtmg_lw.a', '-fopenmp'] + default_link_args),
 
         Extension(
-            'climt._components.gfs._gfs_dynamics',
-            sources=['climt/_components/gfs/_gfs_dynamics.pyx'],
-            libraries=libraries,
-            include_dirs=include_dirs,
-            extra_compile_args=['-fopenmp'] + default_compile_args,
-            library_dirs=lib_path_list,
-            extra_link_args=['-fopenmp', lib_path_list[0]+'/libgfs_dycore.a',
-                             lib_path_list[0]+'/libshtns_omp.a', lib_path_list[0]+'/libfftw3_omp.a',
-                             lib_path_list[0]+'/libfftw3.a', openblas_path] + default_link_args),
-
-        # lib_path+'/libshtns_omp.a', openblas_path, os.environ['COMPILER_PATH']+'../lib/libfftw3.a'] + default_link_args),
-
-        Extension(
             'climt._components.rrtmg.sw._rrtmg_sw',
             sources=['climt/_components/rrtmg/sw/_rrtmg_sw.pyx'],
             libraries=libraries,
@@ -235,15 +199,6 @@ else:
             extra_compile_args=default_compile_args + ['-fopenmp'],
             library_dirs=lib_path_list,
             extra_link_args=[lib_path_list[0]+'/librrtmg_sw.a', '-fopenmp'] + default_link_args),
-
-        Extension(
-            'climt._components.dcmip._dcmip',
-            sources=['climt/_components/dcmip/_dcmip.pyx'],
-            libraries=libraries,
-            include_dirs=include_dirs,
-            extra_compile_args=default_compile_args,
-            library_dirs=lib_path_list,
-            extra_link_args=[lib_path_list[0]+'/libdcmip.a'] + default_link_args),
     ]
 
 setup(
